@@ -11,7 +11,7 @@ export class Read extends React.Component { //'export' keyword allows exportatio
     componentDidMount() { //component life cycle hook is called every time a component becomes active
         axios.get('http://localhost:4000/api/movies') //get method retrieves information for localhost URL
             .then((response) => {
-                this.setState({ movies: response.data.movies })
+                this.setState({ movies: response.data })
             }) //fulfilled state in a promise
 
             .catch((error) => {
