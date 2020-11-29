@@ -5,7 +5,7 @@ export class Movies extends React.Component{ //'export' keyword will allow acces
 
         render(){
             return this.props.movies.map( (movie)=>{ //'map' function takes the collection & splits them into sections
-                return <MovieItem movie={movie}></MovieItem>
+                return <MovieItem movie={movie} ReloadData={this.props.ReloadData}></MovieItem> //passing data (Reload Movies)
             })
         }
 }

@@ -82,6 +82,14 @@ app.get('/api/movies', (req, res) => {      //Root Point
         }) 
  })
 
+app.delete('/api/movies/:id', (req, res) =>{ //listens for a HTTP method with a delete method
+    console.log("Delete Movie: " +req.params.id); //prints 'id' from URL
+
+    MovieModel.findByIdAndDelete(req.params.id, (err, data)=>{  //find & delete record from DB
+        res.send(data);     //sends data back to server
+    });
+})
+
 app.post('/api/movies', (req, res) => {     //Post request sends data to server (front end)
     console.log('Movie Received!');     //server going to receive this data
     console.log(req.body.Title);
