@@ -82,11 +82,22 @@ app.get('/api/movies', (req, res) => {      //Root Point
         }) 
  })
 
-app.delete('/api/movies/:id', (req, res) =>{ //listens for a HTTP method with a delete method
-    console.log("Delete Movie: " +req.params.id); //prints 'id' from URL
+app.put('/api/movies/:id', (req, res)=>{    //sends edited data to server
+        console.log("Update Movie: "+ req.params.id);
+        console.log(req.body);
 
-    MovieModel.findByIdAndDelete(req.params.id, (err, data)=>{  //find & delete record from DB
-        res.send(data);     //sends data back to server
+        //'PUT' method overwrites field to edit
+        MovieModel.findByIdAndUpdate(req.params.id, req.body, {new:true},
+            (err, data)=>{
+                res.send(data); //callback function sends data
+            })
+})
+
+app.delete('/api/movies/:id', (req, res) =>{ //listens for a HTTP method with a delete method
+        console.log("Delete Movie: " +req.params.id); //prints 'id' from URL
+
+        MovieModel.findByIdAndDelete(req.params.id, (err, data)=>{  //find & delete record from DB
+            res.send(data);     //sends data back to server
     });
 })
 
