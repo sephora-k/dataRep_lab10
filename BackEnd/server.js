@@ -4,6 +4,7 @@ const port = 4000;                  //different port no. for current app
 const cors = require('cors');      //includes CORS Library
 const bodyParser = require("body-parser"); //parsing incoming request
 const mongoose = require('mongoose');   //Mongoose library
+const path = require('path'); //path join
 
 //-------------------------------------------
 
@@ -16,6 +17,11 @@ res.header("Access-Control-Allow-Headers",
 "Origin, X-Requested-With, Content-Type, Accept");
 next();
 });
+
+// Configurations that send file to front-end
+app.use(express.static(path.join(__dirname, '/../build')));          //path to 'build' folder
+app.use('/static', express.static(path.join(__dirname, 'build//static'))); //path to 'static' folder
+
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -115,6 +121,9 @@ app.post('/api/movies', (req, res) => {     //Post request sends data to server 
     res.send('Item added!') //alert msg 
 })
 
+app.get('*', (req, res)=>{ // '*' will send all roots to html file
+    res.sendFile(path.join(__dirname+'/../build/index.html'));
+})
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
